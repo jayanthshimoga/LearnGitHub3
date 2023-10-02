@@ -1,0 +1,25 @@
+name: Parallel Workflow
+on: push
+jobs:
+    SetupEnvironment:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v3
+            - name: Install NodeJS
+              uses: actions/setup-node@v3
+              with:
+                node-version: 18.x
+            - name: Install Dependencies
+              run: npm ci
+    Deploy:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Run npm lint
+              run: npm lint
+            - name: Run npm Test cases
+              run: npm run test
+            - name: Run npm build
+              run: npm run test
+            - name: Deploy 
+              run: echo "Deployed successfully >>>>>"
